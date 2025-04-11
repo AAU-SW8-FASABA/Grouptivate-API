@@ -24,6 +24,7 @@ export type IndividualGoal = v.InferOutput<typeof IndividualGoalSchema>;
 
 export const GroupGoalSchema = v.object({
     ...GoalSchema.entries,
+    group: UuidSchema,
     progress: v.record(
         UuidSchema,
         PositiveNumberSchema,

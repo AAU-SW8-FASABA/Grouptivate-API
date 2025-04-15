@@ -4,7 +4,6 @@ export enum OtherActivity {
   ActiveCaloriesBurned = "activeCaloriesBurned",
   FloorsClimbed = "floorsClimbed",
   Steps = "steps",
-  WheelchairPushes = "wheelchairPushes",
 }
 
 export const OtherActivitySchema = v.enum(OtherActivity);

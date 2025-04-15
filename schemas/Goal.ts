@@ -10,6 +10,7 @@ export const GoalSchema = v.object({
     activity: v.union([SportActivitySchema, OtherActivitySchema]),
     metric: MetricSchema,
     target: PositiveNumberSchema,
+    group: UuidSchema,
 })
 
 export type Goal = v.InferOutput<typeof GoalSchema>;
@@ -24,7 +25,6 @@ export type IndividualGoal = v.InferOutput<typeof IndividualGoalSchema>;
 
 export const GroupGoalSchema = v.object({
     ...GoalSchema.entries,
-    group: UuidSchema,
     progress: v.record(
         UuidSchema,
         PositiveNumberSchema,

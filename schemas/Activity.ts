@@ -36,7 +36,6 @@ export enum SportActivity {
   Rugby = "rugby",
   Running = "running",
   Sailing = "sailing",
-  ScubaDiving = "scubaDiving",
   Skating = "skating",
   Skiing = "skiing",
   Snowboarding = "snowboarding",

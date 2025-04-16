@@ -28,7 +28,6 @@ export enum SportActivity {
   Hiking = "hiking",
   Hockey = "hockey",
   MartialArts = "martialArts",
-  Other = "other",
   Paddling = "paddling",
   Pilates = "pilates",
   Racquetball = "racquetball",

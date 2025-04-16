@@ -51,7 +51,6 @@ export enum SportActivity {
   Volleyball = "volleyball",
   Walking = "walking",
   WaterPolo = "waterPolo",
-  Weightlifting = "weightlifting",
   Wheelchair = "wheelchair",
   Yoga = "yoga",
 }

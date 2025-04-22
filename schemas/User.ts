@@ -21,6 +21,7 @@ export const UserCreateRequestSchema: RequestSchema<
   typeof UserCreateRequestBodySchema,
   typeof UserCreateResponseBodySchema
 > = {
+  searchParams: undefined,
   requestBody: UserCreateRequestBodySchema,
   responseBody: UserCreateResponseBodySchema,
 };
@@ -35,5 +36,6 @@ export const UserGetRequestSchema: RequestSchema<
   typeof UserGetResponseBodySchema
 > = {
   searchParams: UserGetSearchParamsSchema,
+  requestBody: undefined,
   responseBody: UserGetResponseBodySchema,
 };

@@ -1,4 +1,4 @@
-import { BaseIssue, BaseSchema } from "valibot";
+import type { BaseIssue, BaseSchema } from "valibot";
 
 export type SearchParametersSchema = {
   [key: string]: BaseSchema<unknown, unknown, BaseIssue<unknown>>;

@@ -1,7 +1,7 @@
 import * as v from "valibot";
 import { UuidSchema } from "./Uuid";
 import { NameSchema } from "./Name";
-import { RequestSchema } from "../containers/Request";
+import type { RequestSchema } from "../containers/Request";
 
 export const UserSchema = v.object({
   uuid: UuidSchema,

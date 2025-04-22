@@ -12,13 +12,13 @@ export type RequestSchema<
   /**
    * Query parameters set in the URL.
    */
-  searchParams?: P;
+  searchParams: P;
   /**
    * The data sent by the client in the request body.
    */
-  requestBody?: R;
+  requestBody: R;
   /**
    * The data sent back by the server.
    */
-  responseBody?: D;
+  responseBody: D;
 };

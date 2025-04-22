@@ -5,7 +5,7 @@ export type SearchParametersSchema = {
 };
 
 export type RequestSchema<
-  P extends SearchParametersSchema | undefined,
+  P extends SearchParametersSchema,
   R extends BaseSchema<unknown, unknown, BaseIssue<unknown>> | undefined,
   D extends BaseSchema<unknown, unknown, BaseIssue<unknown>> | undefined,
 > = {

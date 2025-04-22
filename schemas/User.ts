@@ -17,11 +17,11 @@ export type User = v.InferOutput<typeof UserSchema>;
 const UserCreateRequestBodySchema = v.pick(UserSchema, ["name"]);
 const UserCreateResponseBodySchema = v.pick(UserSchema, ["uuid"]);
 export const UserCreateRequestSchema: RequestSchema<
-  undefined,
+  Record<never, never>,
   typeof UserCreateRequestBodySchema,
   typeof UserCreateResponseBodySchema
 > = {
-  searchParams: undefined,
+  searchParams: {},
   requestBody: UserCreateRequestBodySchema,
   responseBody: UserCreateResponseBodySchema,
 };

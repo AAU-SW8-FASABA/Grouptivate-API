@@ -20,7 +20,7 @@ export type Group = v.InferOutput<typeof GroupSchema>;
  */
 
 const GroupCreateSearchParamsSchema = {
-  user: v.pick(UserSchema, ["uuid"]),
+  user: UserSchema.entries.uuid,
 };
 const GroupCreateRequestBodySchema = v.pick(GroupSchema, ["name", "interval"]);
 const GroupCreateResponseBodySchema = v.pick(GroupSchema, ["uuid"]);
@@ -35,7 +35,7 @@ export const GroupCreateRequestSchema: RequestSchema<
 };
 
 const GroupGetSearchParamsSchema = {
-  uuid: v.pick(GroupSchema, ["uuid"]),
+  uuid: GroupSchema.entries.uuid,
 };
 const GroupGetResponseBodySchema = v.omit(GroupSchema, ["uuid"]);
 export const GroupGetRequestSchema: RequestSchema<
@@ -46,4 +46,20 @@ export const GroupGetRequestSchema: RequestSchema<
   searchParams: GroupGetSearchParamsSchema,
   requestBody: undefined,
   responseBody: GroupGetResponseBodySchema,
+};
+
+const GroupRemoveSearchParamsSchema = {
+  user: UserSchema.entries.uuid,
+};
+const GroupRemoveRequestBodySchema = v.object({
+  group: GroupSchema.entries.uuid,
+});
+export const GroupRemoveRequestSchema: RequestSchema<
+  typeof GroupRemoveSearchParamsSchema,
+  typeof GroupRemoveRequestBodySchema,
+  undefined
+> = {
+  searchParams: GroupRemoveSearchParamsSchema,
+  requestBody: GroupRemoveRequestBodySchema,
+  responseBody: undefined,
 };

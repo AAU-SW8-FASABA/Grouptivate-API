@@ -27,7 +27,7 @@ export const UserCreateRequestSchema: RequestSchema<
 };
 
 const UserGetSearchParamsSchema = {
-  uuid: v.pick(UserSchema, ["uuid"]),
+  uuid: UserSchema.entries.uuid,
 };
 const UserGetResponseBodySchema = v.omit(UserSchema, ["uuid"]);
 export const UserGetRequestSchema: RequestSchema<

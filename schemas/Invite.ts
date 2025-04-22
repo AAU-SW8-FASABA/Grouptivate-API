@@ -16,7 +16,7 @@ export type Invite = v.InferOutput<typeof InviteSchema>;
  */
 
 const InviteCreateSearchParamsSchema = {
-  user: v.pick(UserSchema, ["uuid"]),
+  user: UserSchema.entries.uuid,
 };
 const InviteCreateRequestBodySchema = v.pick(InviteSchema, [
   "group",
@@ -33,7 +33,7 @@ export const InviteCreateRequestSchema: RequestSchema<
 };
 
 const InvitesGetSearchParamsSchema = {
-  user: v.pick(UserSchema, ["uuid"]),
+  user: UserSchema.entries.uuid,
 };
 const InvitesGetResponseBodySchema = v.array(v.omit(InviteSchema, ["invited"]));
 export const InviteGetRequestSchema: RequestSchema<
@@ -44,4 +44,19 @@ export const InviteGetRequestSchema: RequestSchema<
   searchParams: InvitesGetSearchParamsSchema,
   requestBody: undefined,
   responseBody: InvitesGetResponseBodySchema,
+};
+
+const InviteRespondSearchParamsSchema = {
+  user: UserSchema.entries.uuid,
+  invite: InviteSchema.entries.uuid,
+};
+const InviteRespondRequestBodySchema = v.boolean();
+export const InviteRespondRequestSchema: RequestSchema<
+  typeof InviteRespondSearchParamsSchema,
+  typeof InviteRespondRequestBodySchema,
+  undefined
+> = {
+  searchParams: InviteRespondSearchParamsSchema,
+  requestBody: InviteRespondRequestBodySchema,
+  responseBody: undefined,
 };

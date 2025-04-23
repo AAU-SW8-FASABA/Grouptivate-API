@@ -80,7 +80,7 @@ export const GroupGoalCreateRequestSchema: RequestSchema<
 const GoalDeleteSearchParamsSchema = {
   user: UserSchema.entries.uuid,
 };
-const GoalDeleteRequestBodySchema = v.omit(GoalSchema, ["uuid"]);
+const GoalDeleteRequestBodySchema = v.pick(GoalSchema, ["uuid"]);
 export const GoalDeleteRequestSchema: RequestSchema<
   typeof GoalDeleteSearchParamsSchema,
   typeof GoalDeleteRequestBodySchema,

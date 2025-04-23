@@ -39,11 +39,14 @@ const IndividualGoalCreateSearchParamsSchema = {
   user: UserSchema.entries.uuid,
   group: GroupSchema.entries.uuid,
 };
-const IndividualGoalCreateRequestBodySchema = v.omit(GoalSchema, [
+const IndividualGoalCreateRequestBodySchema = v.omit(IndividualGoalSchema, [
   "uuid",
   "group",
+  "progress",
 ]);
-const IndividualGoalCreateResponseBodySchema = v.pick(GoalSchema, ["uuid"]);
+const IndividualGoalCreateResponseBodySchema = v.pick(IndividualGoalSchema, [
+  "uuid",
+]);
 export const IndividualGoalCreateRequestSchema: RequestSchema<
   typeof IndividualGoalCreateSearchParamsSchema,
   typeof IndividualGoalCreateRequestBodySchema,
@@ -54,19 +57,36 @@ export const IndividualGoalCreateRequestSchema: RequestSchema<
   responseBody: IndividualGoalCreateResponseBodySchema,
 };
 
-const GroupGoalCreateCreateSearchParamsSchema = {
+const GroupGoalCreateSearchParamsSchema = {
+  user: UserSchema.entries.uuid,
   group: GroupSchema.entries.uuid,
 };
-const GroupGoalCreateCreateRequestBodySchema = v.omit(GoalSchema, [
+const GroupGoalCreateRequestBodySchema = v.omit(GroupGoalSchema, [
   "uuid",
   "group",
+  "progress",
 ]);
-export const GroupGoalCreateCreateRequestSchema: RequestSchema<
-  typeof GroupGoalCreateCreateSearchParamsSchema,
-  typeof GroupGoalCreateCreateRequestBodySchema,
+const GroupGoalCreateResponseBodySchema = v.pick(GroupGoalSchema, ["uuid"]);
+export const GroupGoalCreateRequestSchema: RequestSchema<
+  typeof GroupGoalCreateSearchParamsSchema,
+  typeof GroupGoalCreateRequestBodySchema,
+  typeof GroupGoalCreateResponseBodySchema
+> = {
+  searchParams: GroupGoalCreateSearchParamsSchema,
+  requestBody: GroupGoalCreateRequestBodySchema,
+  responseBody: GroupGoalCreateResponseBodySchema,
+};
+
+const GoalDeleteSearchParamsSchema = {
+  user: UserSchema.entries.uuid,
+};
+const GoalDeleteRequestBodySchema = v.omit(GoalSchema, ["uuid"]);
+export const GoalDeleteRequestSchema: RequestSchema<
+  typeof GoalDeleteSearchParamsSchema,
+  typeof GoalDeleteRequestBodySchema,
   undefined
 > = {
-  searchParams: GroupGoalCreateCreateSearchParamsSchema,
-  requestBody: GroupGoalCreateCreateRequestBodySchema,
+  searchParams: GoalDeleteSearchParamsSchema,
+  requestBody: GoalDeleteRequestBodySchema,
   responseBody: undefined,
 };

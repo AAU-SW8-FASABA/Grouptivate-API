@@ -1,6 +1,7 @@
 import * as v from "valibot";
 import { UuidSchema } from "./Uuid";
 import { NameSchema } from "./Name";
+import { PasswordSchema } from "./Password";
 import type { RequestSchema } from "../containers/Request";
 
 export const UserSchema = v.object({
@@ -14,7 +15,10 @@ export type User = v.InferOutput<typeof UserSchema>;
  * REST methods
  */
 
-const UserCreateRequestBodySchema = v.pick(UserSchema, ["name"]);
+const UserCreateRequestBodySchema = v.object({
+  name: UserSchema.entries.name,
+  password: PasswordSchema,
+});
 const UserCreateResponseBodySchema = v.pick(UserSchema, ["uuid"]);
 export const UserCreateRequestSchema: RequestSchema<
   Record<never, never>,

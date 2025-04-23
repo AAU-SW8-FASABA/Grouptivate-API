@@ -7,7 +7,7 @@ export const InviteSchema = v.object({
   uuid: UuidSchema,
   group: UuidSchema,
   invited: UuidSchema,
-  invitee: UuidSchema,
+  inviter: UuidSchema,
 });
 export type Invite = v.InferOutput<typeof InviteSchema>;
 

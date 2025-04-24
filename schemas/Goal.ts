@@ -77,6 +77,22 @@ export const GroupGoalCreateRequestSchema: RequestSchema<
   responseBody: GroupGoalCreateResponseBodySchema,
 };
 
+const GoalPatchSearchParamsSchema = {
+  user: UserSchema.entries.uuid,
+};
+const GoalPatchRequestBodySchema = v.array(
+  v.pick(IndividualGoalSchema, ["uuid", "progress"]),
+);
+export const GoalPatchRequestSchema: RequestSchema<
+  typeof GoalPatchSearchParamsSchema,
+  typeof GoalPatchRequestBodySchema,
+  undefined
+> = {
+  searchParams: GoalPatchSearchParamsSchema,
+  requestBody: GoalPatchRequestBodySchema,
+  responseBody: undefined,
+};
+
 const GoalDeleteSearchParamsSchema = {
   user: UserSchema.entries.uuid,
 };

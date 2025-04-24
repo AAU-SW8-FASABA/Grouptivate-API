@@ -6,7 +6,7 @@ import { UuidSchema } from "./Uuid";
 import { OtherActivitySchema, SportActivitySchema } from "./Activity";
 import { UserSchema } from "./User";
 import { GroupSchema } from "./Group";
-import { RequestSchema } from "../containers/Request";
+import type { RequestSchema } from "../containers/Request";
 
 export const GoalSchema = v.object({
   uuid: UuidSchema,

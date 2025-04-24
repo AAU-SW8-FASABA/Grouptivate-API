@@ -35,7 +35,7 @@ export type GroupGoal = v.InferOutput<typeof GroupGoalSchema>;
  */
 
 const IndividualGoalCreateSearchParamsSchema = {
-  user: UserSchema.entries.uuid,
+  createruuid: UserSchema.entries.uuid,
   group: GroupSchema.entries.uuid,
 };
 const IndividualGoalCreateRequestBodySchema = v.omit(IndividualGoalSchema, [

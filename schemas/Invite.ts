@@ -50,7 +50,7 @@ const InviteRespondSearchParamsSchema = {
   user: UserSchema.entries.uuid,
   invite: InviteSchema.entries.uuid,
 };
-const InviteRespondRequestBodySchema = v.boolean();
+const InviteRespondRequestBodySchema = v.object({ accepted: v.boolean() });
 export const InviteRespondRequestSchema: RequestSchema<
   typeof InviteRespondSearchParamsSchema,
   typeof InviteRespondRequestBodySchema,

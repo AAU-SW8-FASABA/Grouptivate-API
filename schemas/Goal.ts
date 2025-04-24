@@ -5,7 +5,6 @@ import { MetricSchema } from "./Metric";
 import { UuidSchema } from "./Uuid";
 import { OtherActivitySchema, SportActivitySchema } from "./Activity";
 import { UserSchema } from "./User";
-import { GroupSchema } from "./Group";
 import type { RequestSchema } from "../containers/Request";
 
 export const GoalSchema = v.object({
@@ -36,7 +35,7 @@ export type GroupGoal = v.InferOutput<typeof GroupGoalSchema>;
 
 const IndividualGoalCreateSearchParamsSchema = {
   createruuid: UserSchema.entries.uuid,
-  group: GroupSchema.entries.uuid,
+  group: UuidSchema,
 };
 const IndividualGoalCreateRequestBodySchema = v.omit(IndividualGoalSchema, [
   "uuid",
@@ -57,7 +56,7 @@ export const IndividualGoalCreateRequestSchema: RequestSchema<
 
 const GroupGoalCreateSearchParamsSchema = {
   user: UserSchema.entries.uuid,
-  group: GroupSchema.entries.uuid,
+  group: UuidSchema,
 };
 const GroupGoalCreateRequestBodySchema = v.omit(GroupGoalSchema, [
   "uuid",

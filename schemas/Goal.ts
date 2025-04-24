@@ -14,7 +14,6 @@ export const GoalSchema = v.object({
   activity: v.union([SportActivitySchema, OtherActivitySchema]),
   metric: MetricSchema,
   target: PositiveNumberSchema,
-  group: UuidSchema,
 });
 export type Goal = v.InferOutput<typeof GoalSchema>;
 
@@ -41,7 +40,6 @@ const IndividualGoalCreateSearchParamsSchema = {
 };
 const IndividualGoalCreateRequestBodySchema = v.omit(IndividualGoalSchema, [
   "uuid",
-  "group",
   "progress",
 ]);
 const IndividualGoalCreateResponseBodySchema = v.pick(IndividualGoalSchema, [
@@ -63,7 +61,6 @@ const GroupGoalCreateSearchParamsSchema = {
 };
 const GroupGoalCreateRequestBodySchema = v.omit(GroupGoalSchema, [
   "uuid",
-  "group",
   "progress",
 ]);
 const GroupGoalCreateResponseBodySchema = v.pick(GroupGoalSchema, ["uuid"]);

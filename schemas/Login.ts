@@ -27,3 +27,16 @@ export const LoginRequestSchema: RequestSchema<
   requestBody: LoginRequestBodySchema,
   responseBody: LoginResponseBodySchema,
 };
+
+const VerifyRequestBodySchema = v.object({
+  token: TokenSchema,
+});
+export const VerifyRequestSchema: RequestSchema<
+  Record<never, never>,
+  typeof VerifyRequestBodySchema,
+  undefined
+> = {
+  searchParams: {},
+  requestBody: VerifyRequestBodySchema,
+  responseBody: undefined,
+};

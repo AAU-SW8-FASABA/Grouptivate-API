@@ -46,7 +46,10 @@ export const GroupGetRequestSchema: RequestSchema<
   responseBody: GroupGetResponseBodySchema,
 };
 
-const GroupRemoveRequestBodySchema = v.pick(GroupSchema, ["uuid"]);
+const GroupRemoveRequestBodySchema = v.object({
+  user: UuidSchema,
+  group: GroupSchema.entries.uuid,
+});
 export const GroupRemoveRequestSchema: RequestSchema<
   Record<never, never>,
   typeof GroupRemoveRequestBodySchema,

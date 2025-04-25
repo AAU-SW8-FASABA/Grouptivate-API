@@ -2,6 +2,7 @@ import * as v from "valibot";
 import { UuidSchema } from "./Uuid";
 import { NameSchema } from "./Name";
 import { LoginSchema } from "./Login";
+import { TokenSchema } from "./Token";
 import type { RequestSchema } from "../containers/Request";
 
 export const UserSchema = v.object({
@@ -15,14 +16,17 @@ export type User = v.InferOutput<typeof UserSchema>;
  */
 
 const UserCreateRequestBodySchema = LoginSchema;
+const UserCreateResponseBodySchema = v.object({
+  token: TokenSchema,
+});
 export const UserCreateRequestSchema: RequestSchema<
   Record<never, never>,
   typeof UserCreateRequestBodySchema,
-  undefined
+  typeof UserCreateResponseBodySchema
 > = {
   searchParams: {},
   requestBody: UserCreateRequestBodySchema,
-  responseBody: undefined,
+  responseBody: UserCreateResponseBodySchema,
 };
 
 const UserGetResponseBodySchema = UserSchema;

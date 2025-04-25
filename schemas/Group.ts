@@ -2,7 +2,7 @@ import * as v from "valibot";
 import { UuidSchema } from "./Uuid";
 import { NameSchema } from "./Name";
 import { IntervalSchema } from "./Interval";
-import { GroupGoalSchema, IndividualGoalSchema } from "./Goal";
+import { GoalSchema } from "./Goal";
 import { PositiveNumberSchema } from "./PositiveNumber";
 import type { RequestSchema } from "../containers/Request";
 
@@ -11,7 +11,7 @@ export const GroupSchema = v.object({
   name: NameSchema,
   users: v.pipe(v.array(UuidSchema), v.minLength(1)),
   interval: IntervalSchema,
-  goals: v.array(v.union([IndividualGoalSchema, GroupGoalSchema])),
+  goals: v.array(GoalSchema),
   streak: PositiveNumberSchema,
 });
 export type Group = v.InferOutput<typeof GroupSchema>;

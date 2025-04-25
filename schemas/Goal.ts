@@ -29,10 +29,7 @@ export type Goal = v.InferOutput<typeof GoalSchema>;
 const GoalCreateSearchParamsSchema = {
   group: UuidSchema,
 };
-const GoalCreateRequestBodySchema = v.omit(GoalSchema, [
-  "uuid",
-  "progress",
-]);
+const GoalCreateRequestBodySchema = v.omit(GoalSchema, ["uuid", "progress"]);
 const GroupGoalCreateResponseBodySchema = v.pick(GoalSchema, ["uuid"]);
 export const GroupGoalCreateRequestSchema: RequestSchema<
   typeof GoalCreateSearchParamsSchema,
@@ -44,10 +41,12 @@ export const GroupGoalCreateRequestSchema: RequestSchema<
   responseBody: GroupGoalCreateResponseBodySchema,
 };
 
-const GoalPatchRequestBodySchema = v.array(v.object({
-  uuid: GoalSchema.entries.uuid,
-  progress: GoalSchema.entries.progress.value,
-}));
+const GoalPatchRequestBodySchema = v.array(
+  v.object({
+    uuid: GoalSchema.entries.uuid,
+    progress: GoalSchema.entries.progress.value,
+  }),
+);
 export const GoalPatchRequestSchema: RequestSchema<
   Record<never, never>,
   typeof GoalPatchRequestBodySchema,

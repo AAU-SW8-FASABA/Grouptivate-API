@@ -28,6 +28,7 @@ export type Goal = v.InferOutput<typeof GoalSchema>;
 
 const GoalCreateSearchParamsSchema = {
   group: UuidSchema,
+  user: UuidSchema,
 };
 const GoalCreateRequestBodySchema = v.omit(GoalSchema, ["uuid", "progress"]);
 const GoalCreateResponseBodySchema = v.pick(GoalSchema, ["uuid"]);

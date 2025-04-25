@@ -4,7 +4,6 @@ import { PositiveNumberSchema } from "./PositiveNumber";
 import { MetricSchema } from "./Metric";
 import { UuidSchema } from "./Uuid";
 import { OtherActivitySchema, SportActivitySchema } from "./Activity";
-import { UserSchema } from "./User";
 import type { RequestSchema } from "../containers/Request";
 
 export const GoalSchema = v.object({
@@ -34,7 +33,6 @@ export type GroupGoal = v.InferOutput<typeof GroupGoalSchema>;
  */
 
 const IndividualGoalCreateSearchParamsSchema = {
-  createruuid: UserSchema.entries.uuid,
   group: UuidSchema,
 };
 const IndividualGoalCreateRequestBodySchema = v.omit(IndividualGoalSchema, [
@@ -55,7 +53,6 @@ export const IndividualGoalCreateRequestSchema: RequestSchema<
 };
 
 const GroupGoalCreateSearchParamsSchema = {
-  user: UserSchema.entries.uuid,
   group: UuidSchema,
 };
 const GroupGoalCreateRequestBodySchema = v.omit(GroupGoalSchema, [
@@ -73,32 +70,26 @@ export const GroupGoalCreateRequestSchema: RequestSchema<
   responseBody: GroupGoalCreateResponseBodySchema,
 };
 
-const GoalPatchSearchParamsSchema = {
-  user: UserSchema.entries.uuid,
-};
 const GoalPatchRequestBodySchema = v.array(
   v.pick(IndividualGoalSchema, ["uuid", "progress"]),
 );
 export const GoalPatchRequestSchema: RequestSchema<
-  typeof GoalPatchSearchParamsSchema,
+  Record<never, never>,
   typeof GoalPatchRequestBodySchema,
   undefined
 > = {
-  searchParams: GoalPatchSearchParamsSchema,
+  searchParams: {},
   requestBody: GoalPatchRequestBodySchema,
   responseBody: undefined,
 };
 
-const GoalDeleteSearchParamsSchema = {
-  user: UserSchema.entries.uuid,
-};
 const GoalDeleteRequestBodySchema = v.pick(GoalSchema, ["uuid"]);
 export const GoalDeleteRequestSchema: RequestSchema<
-  typeof GoalDeleteSearchParamsSchema,
+  Record<never, never>,
   typeof GoalDeleteRequestBodySchema,
   undefined
 > = {
-  searchParams: GoalDeleteSearchParamsSchema,
+  searchParams: {},
   requestBody: GoalDeleteRequestBodySchema,
   responseBody: undefined,
 };

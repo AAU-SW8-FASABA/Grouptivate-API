@@ -4,7 +4,6 @@ import { NameSchema } from "./Name";
 import { IntervalSchema } from "./Interval";
 import { GroupGoalSchema, IndividualGoalSchema } from "./Goal";
 import { PositiveNumberSchema } from "./PositiveNumber";
-import { UserSchema } from "./User";
 import type { RequestSchema } from "../containers/Request";
 
 export const GroupSchema = v.object({
@@ -21,17 +20,14 @@ export type Group = v.InferOutput<typeof GroupSchema>;
  * REST methods
  */
 
-const GroupCreateSearchParamsSchema = {
-  user: UserSchema.entries.uuid,
-};
 const GroupCreateRequestBodySchema = v.pick(GroupSchema, ["name", "interval"]);
 const GroupCreateResponseBodySchema = v.pick(GroupSchema, ["uuid"]);
 export const GroupCreateRequestSchema: RequestSchema<
-  typeof GroupCreateSearchParamsSchema,
+  Record<never, never>,
   typeof GroupCreateRequestBodySchema,
   typeof GroupCreateResponseBodySchema
 > = {
-  searchParams: GroupCreateSearchParamsSchema,
+  searchParams: {},
   requestBody: GroupCreateRequestBodySchema,
   responseBody: GroupCreateResponseBodySchema,
 };
@@ -50,18 +46,13 @@ export const GroupGetRequestSchema: RequestSchema<
   responseBody: GroupGetResponseBodySchema,
 };
 
-const GroupRemoveSearchParamsSchema = {
-  user: UserSchema.entries.uuid,
-};
-const GroupRemoveRequestBodySchema = v.object({
-  group: GroupSchema.entries.uuid,
-});
+const GroupRemoveRequestBodySchema = v.pick(GroupSchema, ["uuid"]);
 export const GroupRemoveRequestSchema: RequestSchema<
-  typeof GroupRemoveSearchParamsSchema,
+  Record<never, never>,
   typeof GroupRemoveRequestBodySchema,
   undefined
 > = {
-  searchParams: GroupRemoveSearchParamsSchema,
+  searchParams: {},
   requestBody: GroupRemoveRequestBodySchema,
   responseBody: undefined,
 };

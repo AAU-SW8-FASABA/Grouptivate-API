@@ -5,7 +5,6 @@ import { PasswordSchema } from "./Password";
 import type { RequestSchema } from "../containers/Request";
 
 export const UserSchema = v.object({
-  uuid: UuidSchema,
   name: NameSchema,
   groups: v.array(UuidSchema),
 });
@@ -19,27 +18,23 @@ const UserCreateRequestBodySchema = v.object({
   name: UserSchema.entries.name,
   password: PasswordSchema,
 });
-const UserCreateResponseBodySchema = v.pick(UserSchema, ["uuid"]);
 export const UserCreateRequestSchema: RequestSchema<
   Record<never, never>,
   typeof UserCreateRequestBodySchema,
-  typeof UserCreateResponseBodySchema
+  undefined
 > = {
   searchParams: {},
   requestBody: UserCreateRequestBodySchema,
-  responseBody: UserCreateResponseBodySchema,
+  responseBody: undefined,
 };
 
-const UserGetSearchParamsSchema = {
-  uuid: UserSchema.entries.uuid,
-};
-const UserGetResponseBodySchema = v.omit(UserSchema, ["uuid"]);
+const UserGetResponseBodySchema = UserSchema;
 export const UserGetRequestSchema: RequestSchema<
-  typeof UserGetSearchParamsSchema,
+  Record<never, never>,
   undefined,
   typeof UserGetResponseBodySchema
 > = {
-  searchParams: UserGetSearchParamsSchema,
+  searchParams: {},
   requestBody: undefined,
   responseBody: UserGetResponseBodySchema,
 };

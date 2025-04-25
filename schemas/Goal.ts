@@ -7,18 +7,18 @@ import { OtherActivitySchema, SportActivitySchema } from "./Activity";
 import type { RequestSchema } from "../containers/Request";
 
 export enum GoalType {
-  Individual = "individual",
-  Group = "group",
+    Individual = "individual",
+    Group = "group",
 }
 
 export const GoalSchema = v.object({
-  uuid: UuidSchema,
-  type: v.enum(GoalType),
-  title: NameSchema,
-  activity: v.union([SportActivitySchema, OtherActivitySchema]),
-  metric: MetricSchema,
-  target: PositiveNumberSchema,
-  progress: v.record(NameSchema, PositiveNumberSchema),
+    uuid: UuidSchema,
+    type: v.enum(GoalType),
+    title: NameSchema,
+    activity: v.union([SportActivitySchema, OtherActivitySchema]),
+    metric: MetricSchema,
+    target: PositiveNumberSchema,
+    progress: v.record(NameSchema, PositiveNumberSchema),
 });
 export type Goal = v.InferOutput<typeof GoalSchema>;
 
@@ -27,43 +27,43 @@ export type Goal = v.InferOutput<typeof GoalSchema>;
  */
 
 const GoalCreateSearchParamsSchema = {
-  group: UuidSchema,
+    group: UuidSchema,
 };
 const GoalCreateRequestBodySchema = v.omit(GoalSchema, ["uuid", "progress"]);
-const GroupGoalCreateResponseBodySchema = v.pick(GoalSchema, ["uuid"]);
-export const GroupGoalCreateRequestSchema: RequestSchema<
-  typeof GoalCreateSearchParamsSchema,
-  typeof GoalCreateRequestBodySchema,
-  typeof GroupGoalCreateResponseBodySchema
+const GoalCreateResponseBodySchema = v.pick(GoalSchema, ["uuid"]);
+export const GoalCreateRequestSchema: RequestSchema<
+    typeof GoalCreateSearchParamsSchema,
+    typeof GoalCreateRequestBodySchema,
+    typeof GoalCreateResponseBodySchema
 > = {
-  searchParams: GoalCreateSearchParamsSchema,
-  requestBody: GoalCreateRequestBodySchema,
-  responseBody: GroupGoalCreateResponseBodySchema,
+    searchParams: GoalCreateSearchParamsSchema,
+    requestBody: GoalCreateRequestBodySchema,
+    responseBody: GoalCreateResponseBodySchema,
 };
 
 const GoalPatchRequestBodySchema = v.array(
-  v.object({
-    uuid: GoalSchema.entries.uuid,
-    progress: GoalSchema.entries.progress.value,
-  }),
+    v.object({
+        uuid: GoalSchema.entries.uuid,
+        progress: GoalSchema.entries.progress.value,
+    }),
 );
 export const GoalPatchRequestSchema: RequestSchema<
-  Record<never, never>,
-  typeof GoalPatchRequestBodySchema,
-  undefined
+    Record<never, never>,
+    typeof GoalPatchRequestBodySchema,
+    undefined
 > = {
-  searchParams: {},
-  requestBody: GoalPatchRequestBodySchema,
-  responseBody: undefined,
+    searchParams: {},
+    requestBody: GoalPatchRequestBodySchema,
+    responseBody: undefined,
 };
 
 const GoalDeleteRequestBodySchema = v.pick(GoalSchema, ["uuid"]);
 export const GoalDeleteRequestSchema: RequestSchema<
-  Record<never, never>,
-  typeof GoalDeleteRequestBodySchema,
-  undefined
+    Record<never, never>,
+    typeof GoalDeleteRequestBodySchema,
+    undefined
 > = {
-  searchParams: {},
-  requestBody: GoalDeleteRequestBodySchema,
-  responseBody: undefined,
+    searchParams: {},
+    requestBody: GoalDeleteRequestBodySchema,
+    responseBody: undefined,
 };

@@ -9,7 +9,7 @@ import type { RequestSchema } from "../containers/Request";
 export const GroupSchema = v.object({
   uuid: UuidSchema,
   name: NameSchema,
-  users: v.pipe(v.array(UuidSchema), v.minLength(1)),
+  users: v.pipe(v.array(NameSchema), v.minLength(1)),
   interval: IntervalSchema,
   goals: v.array(GoalSchema),
   streak: PositiveNumberSchema,

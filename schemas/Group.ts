@@ -1,18 +1,18 @@
-import * as v from "valibot";
-import { UuidSchema } from "./Uuid";
-import { NameSchema } from "./Name";
-import { IntervalSchema } from "./Interval";
-import { GoalSchema } from "./Goal";
-import { PositiveNumberSchema } from "./PositiveNumber";
-import type { RequestSchema } from "../containers/Request";
+import * as v from 'valibot';
+import { UuidSchema } from './Uuid';
+import { NameSchema } from './Name';
+import { IntervalSchema } from './Interval';
+import { GoalSchema } from './Goal';
+import { PositiveNumberSchema } from './PositiveNumber';
+import type { RequestSchema } from '../containers/Request';
 
 export const GroupSchema = v.object({
-  uuid: UuidSchema,
-  name: NameSchema,
-  users: v.pipe(v.array(NameSchema), v.minLength(1)),
-  interval: IntervalSchema,
-  goals: v.array(GoalSchema),
-  streak: PositiveNumberSchema,
+    groupId: UuidSchema,
+    groupName: NameSchema,
+    users: v.pipe(v.map(UuidSchema, NameSchema), v.minSize(1)),
+    interval: IntervalSchema,
+    goals: v.array(GoalSchema),
+    streak: PositiveNumberSchema,
 });
 export type Group = v.InferOutput<typeof GroupSchema>;
 
@@ -20,42 +20,45 @@ export type Group = v.InferOutput<typeof GroupSchema>;
  * REST methods
  */
 
-const GroupCreateRequestBodySchema = v.pick(GroupSchema, ["name", "interval"]);
-const GroupCreateResponseBodySchema = v.pick(GroupSchema, ["uuid"]);
+const GroupCreateRequestBodySchema = v.pick(GroupSchema, [
+    'groupName',
+    'interval',
+]);
+const GroupCreateResponseBodySchema = v.pick(GroupSchema, ['groupId']);
 export const GroupCreateRequestSchema: RequestSchema<
-  Record<never, never>,
-  typeof GroupCreateRequestBodySchema,
-  typeof GroupCreateResponseBodySchema
+    Record<never, never>,
+    typeof GroupCreateRequestBodySchema,
+    typeof GroupCreateResponseBodySchema
 > = {
-  searchParams: {},
-  requestBody: GroupCreateRequestBodySchema,
-  responseBody: GroupCreateResponseBodySchema,
+    searchParams: {},
+    requestBody: GroupCreateRequestBodySchema,
+    responseBody: GroupCreateResponseBodySchema,
 };
 
 const GroupGetSearchParamsSchema = {
-  uuid: GroupSchema.entries.uuid,
+    groupId: GroupSchema.entries.groupId,
 };
-const GroupGetResponseBodySchema = v.omit(GroupSchema, ["uuid"]);
+const GroupGetResponseBodySchema = v.omit(GroupSchema, ['groupId']);
 export const GroupGetRequestSchema: RequestSchema<
-  typeof GroupGetSearchParamsSchema,
-  undefined,
-  typeof GroupGetResponseBodySchema
+    typeof GroupGetSearchParamsSchema,
+    undefined,
+    typeof GroupGetResponseBodySchema
 > = {
-  searchParams: GroupGetSearchParamsSchema,
-  requestBody: undefined,
-  responseBody: GroupGetResponseBodySchema,
+    searchParams: GroupGetSearchParamsSchema,
+    requestBody: undefined,
+    responseBody: GroupGetResponseBodySchema,
 };
 
 const GroupRemoveRequestBodySchema = v.object({
-  user: NameSchema,
-  group: GroupSchema.entries.uuid,
+    userName: NameSchema,
+    groupId: GroupSchema.entries.groupId,
 });
 export const GroupRemoveRequestSchema: RequestSchema<
-  Record<never, never>,
-  typeof GroupRemoveRequestBodySchema,
-  undefined
+    Record<never, never>,
+    typeof GroupRemoveRequestBodySchema,
+    undefined
 > = {
-  searchParams: {},
-  requestBody: GroupRemoveRequestBodySchema,
-  responseBody: undefined,
+    searchParams: {},
+    requestBody: GroupRemoveRequestBodySchema,
+    responseBody: undefined,
 };

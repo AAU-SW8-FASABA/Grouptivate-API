@@ -1,13 +1,13 @@
-import * as v from "valibot";
-import { UuidSchema } from "./Uuid";
-import { UserSchema } from "./User";
-import type { RequestSchema } from "../containers/Request";
+import * as v from 'valibot';
+import { UuidSchema } from './Uuid';
+import { UserSchema } from './User';
+import type { RequestSchema } from '../containers/Request';
 
 export const InviteSchema = v.object({
-  uuid: UuidSchema,
-  group: UuidSchema,
-  invited: UserSchema.entries.name,
-  inviter: UserSchema.entries.name,
+    inviteId: UuidSchema,
+    groupId: UuidSchema,
+    inviteeId: UserSchema.entries.userId,
+    inviterId: UserSchema.entries.userId,
 });
 export type Invite = v.InferOutput<typeof InviteSchema>;
 
@@ -16,40 +16,42 @@ export type Invite = v.InferOutput<typeof InviteSchema>;
  */
 
 const InviteCreateRequestBodySchema = v.pick(InviteSchema, [
-  "group",
-  "invited",
+    'groupId',
+    'inviteeId',
 ]);
 export const InviteCreateRequestSchema: RequestSchema<
-  Record<never, never>,
-  typeof InviteCreateRequestBodySchema,
-  undefined
+    Record<never, never>,
+    typeof InviteCreateRequestBodySchema,
+    undefined
 > = {
-  searchParams: {},
-  requestBody: InviteCreateRequestBodySchema,
-  responseBody: undefined,
+    searchParams: {},
+    requestBody: InviteCreateRequestBodySchema,
+    responseBody: undefined,
 };
 
-const InvitesGetResponseBodySchema = v.array(v.omit(InviteSchema, ["invited"]));
+const InvitesGetResponseBodySchema = v.array(
+    v.omit(InviteSchema, ['inviteeId']),
+);
 export const InviteGetRequestSchema: RequestSchema<
-  Record<never, never>,
-  undefined,
-  typeof InvitesGetResponseBodySchema
+    Record<never, never>,
+    undefined,
+    typeof InvitesGetResponseBodySchema
 > = {
-  searchParams: {},
-  requestBody: undefined,
-  responseBody: InvitesGetResponseBodySchema,
+    searchParams: {},
+    requestBody: undefined,
+    responseBody: InvitesGetResponseBodySchema,
 };
 
 const InviteRespondSearchParamsSchema = {
-  invite: InviteSchema.entries.uuid,
+    invite: InviteSchema.entries.inviteId,
 };
 const InviteRespondRequestBodySchema = v.object({ accepted: v.boolean() });
 export const InviteRespondRequestSchema: RequestSchema<
-  typeof InviteRespondSearchParamsSchema,
-  typeof InviteRespondRequestBodySchema,
-  undefined
+    typeof InviteRespondSearchParamsSchema,
+    typeof InviteRespondRequestBodySchema,
+    undefined
 > = {
-  searchParams: InviteRespondSearchParamsSchema,
-  requestBody: InviteRespondRequestBodySchema,
-  responseBody: undefined,
+    searchParams: InviteRespondSearchParamsSchema,
+    requestBody: InviteRespondRequestBodySchema,
+    responseBody: undefined,
 };

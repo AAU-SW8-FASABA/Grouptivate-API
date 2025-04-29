@@ -30,7 +30,7 @@ export const UserCreateRequestSchema: RequestSchema<
     responseBody: UserCreateResponseBodySchema,
 };
 
-const UserGetResponseBodySchema = UserSchema;
+const UserGetResponseBodySchema = v.omit(UserSchema, ['userId']);
 export const UserGetRequestSchema: RequestSchema<
     Record<never, never>,
     undefined,

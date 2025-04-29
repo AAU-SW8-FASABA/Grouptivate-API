@@ -50,7 +50,7 @@ export const GroupGetRequestSchema: RequestSchema<
 };
 
 const GroupRemoveRequestBodySchema = v.object({
-    userName: NameSchema,
+    userId: UuidSchema,
     groupId: GroupSchema.entries.groupId,
 });
 export const GroupRemoveRequestSchema: RequestSchema<

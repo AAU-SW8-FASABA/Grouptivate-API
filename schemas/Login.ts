@@ -3,6 +3,7 @@ import { NameSchema } from "./Name";
 import { PasswordSchema } from "./Password";
 import { TokenSchema } from "./Token";
 import type { RequestSchema } from "../containers/Request";
+import { UserSchema } from "./User";
 
 export const LoginSchema = v.object({
 	name: NameSchema,
@@ -17,6 +18,7 @@ export type Login = v.InferOutput<typeof LoginSchema>;
 const LoginRequestBodySchema = LoginSchema;
 const LoginResponseBodySchema = v.object({
 	token: TokenSchema,
+	userId: UserSchema.entries.userId,
 });
 export const LoginRequestSchema: RequestSchema<
 	Record<never, never>,

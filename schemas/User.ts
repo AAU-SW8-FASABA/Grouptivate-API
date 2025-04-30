@@ -21,6 +21,7 @@ export type User = v.InferOutput<typeof UserSchema>;
 const UserCreateRequestBodySchema = LoginSchema;
 const UserCreateResponseBodySchema = v.object({
 	token: TokenSchema,
+	userId: UserSchema.entries.userId,
 });
 export const UserCreateRequestSchema: RequestSchema<
 	Record<never, never>,
@@ -32,7 +33,7 @@ export const UserCreateRequestSchema: RequestSchema<
 	responseBody: UserCreateResponseBodySchema,
 };
 
-const UserGetResponseBodySchema = v.omit(UserSchema, ["userId"]);
+const UserGetResponseBodySchema = UserSchema;
 export const UserGetRequestSchema: RequestSchema<
 	Record<never, never>,
 	undefined,

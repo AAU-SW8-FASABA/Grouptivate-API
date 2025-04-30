@@ -1,11 +1,12 @@
 import * as v from "valibot";
 import { UuidSchema } from "./Uuid";
 import { NameSchema } from "./Name";
-import { PasswordSchema } from "./Password";
+import { LoginSchema } from "./Login";
+import { TokenSchema } from "./Token";
 import type { RequestSchema } from "../containers/Request";
 
 export const UserSchema = v.object({
-  uuid: UuidSchema,
+  userId: UuidSchema,
   name: NameSchema,
   groups: v.array(UuidSchema),
 });
@@ -15,11 +16,10 @@ export type User = v.InferOutput<typeof UserSchema>;
  * REST methods
  */
 
-const UserCreateRequestBodySchema = v.object({
-  name: UserSchema.entries.name,
-  password: PasswordSchema,
+const UserCreateRequestBodySchema = LoginSchema;
+const UserCreateResponseBodySchema = v.object({
+  token: TokenSchema,
 });
-const UserCreateResponseBodySchema = v.pick(UserSchema, ["uuid"]);
 export const UserCreateRequestSchema: RequestSchema<
   Record<never, never>,
   typeof UserCreateRequestBodySchema,
@@ -30,16 +30,13 @@ export const UserCreateRequestSchema: RequestSchema<
   responseBody: UserCreateResponseBodySchema,
 };
 
-const UserGetSearchParamsSchema = {
-  uuid: UserSchema.entries.uuid,
-};
-const UserGetResponseBodySchema = v.omit(UserSchema, ["uuid"]);
+const UserGetResponseBodySchema = v.omit(UserSchema, ["userId"]);
 export const UserGetRequestSchema: RequestSchema<
-  typeof UserGetSearchParamsSchema,
+  Record<never, never>,
   undefined,
   typeof UserGetResponseBodySchema
 > = {
-  searchParams: UserGetSearchParamsSchema,
+  searchParams: {},
   requestBody: undefined,
   responseBody: UserGetResponseBodySchema,
 };

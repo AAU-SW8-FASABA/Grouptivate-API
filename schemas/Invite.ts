@@ -4,10 +4,10 @@ import { UserSchema } from "./User";
 import type { RequestSchema } from "../containers/Request";
 
 export const InviteSchema = v.object({
-  uuid: UuidSchema,
-  group: UuidSchema,
-  invited: UuidSchema,
-  inviter: UuidSchema,
+  inviteId: UuidSchema,
+  groupId: UuidSchema,
+  inviteeName: UserSchema.entries.name,
+  inviterId: UserSchema.entries.userId,
 });
 export type Invite = v.InferOutput<typeof InviteSchema>;
 
@@ -15,40 +15,35 @@ export type Invite = v.InferOutput<typeof InviteSchema>;
  * REST methods
  */
 
-const InviteCreateSearchParamsSchema = {
-  user: UserSchema.entries.uuid,
-};
 const InviteCreateRequestBodySchema = v.pick(InviteSchema, [
-  "group",
-  "invited",
+  "groupId",
+  "inviteeName",
 ]);
 export const InviteCreateRequestSchema: RequestSchema<
-  typeof InviteCreateSearchParamsSchema,
+  Record<never, never>,
   typeof InviteCreateRequestBodySchema,
   undefined
 > = {
-  searchParams: InviteCreateSearchParamsSchema,
+  searchParams: {},
   requestBody: InviteCreateRequestBodySchema,
   responseBody: undefined,
 };
 
-const InvitesGetSearchParamsSchema = {
-  user: UserSchema.entries.uuid,
-};
-const InvitesGetResponseBodySchema = v.array(v.omit(InviteSchema, ["invited"]));
+const InvitesGetResponseBodySchema = v.array(
+  v.omit(InviteSchema, ["inviteeName"]),
+);
 export const InviteGetRequestSchema: RequestSchema<
-  typeof InvitesGetSearchParamsSchema,
+  Record<never, never>,
   undefined,
   typeof InvitesGetResponseBodySchema
 > = {
-  searchParams: InvitesGetSearchParamsSchema,
+  searchParams: {},
   requestBody: undefined,
   responseBody: InvitesGetResponseBodySchema,
 };
 
 const InviteRespondSearchParamsSchema = {
-  user: UserSchema.entries.uuid,
-  invite: InviteSchema.entries.uuid,
+  invite: InviteSchema.entries.inviteId,
 };
 const InviteRespondRequestBodySchema = v.object({ accepted: v.boolean() });
 export const InviteRespondRequestSchema: RequestSchema<

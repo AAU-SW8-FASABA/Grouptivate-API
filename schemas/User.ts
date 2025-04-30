@@ -4,11 +4,13 @@ import { NameSchema } from "./Name";
 import { LoginSchema } from "./Login";
 import { TokenSchema } from "./Token";
 import type { RequestSchema } from "../containers/Request";
+import { GoalSchema } from "./Goal";
 
 export const UserSchema = v.object({
 	userId: UuidSchema,
 	name: NameSchema,
 	groups: v.array(UuidSchema),
+	goals: v.array(GoalSchema),
 });
 export type User = v.InferOutput<typeof UserSchema>;
 

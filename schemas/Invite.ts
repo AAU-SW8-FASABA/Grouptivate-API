@@ -1,13 +1,15 @@
 import * as v from "valibot";
 import { UuidSchema } from "./Uuid";
 import { UserSchema } from "./User";
+import { GroupSchema } from "./Group";
 import type { RequestSchema } from "../containers/Request";
 
 export const InviteSchema = v.object({
 	inviteId: UuidSchema,
 	groupId: UuidSchema,
+	groupName: GroupSchema.entries.groupName,
 	inviteeName: UserSchema.entries.name,
-	inviterId: UserSchema.entries.userId,
+	inviterName: UserSchema.entries.name,
 });
 export type Invite = v.InferOutput<typeof InviteSchema>;
 
@@ -30,7 +32,7 @@ export const InviteCreateRequestSchema: RequestSchema<
 };
 
 const InvitesGetResponseBodySchema = v.array(
-	v.omit(InviteSchema, ["inviteeName"]),
+	v.omit(InviteSchema, ["inviteeName", "groupId"]),
 );
 export const InviteGetRequestSchema: RequestSchema<
 	Record<never, never>,
@@ -42,8 +44,21 @@ export const InviteGetRequestSchema: RequestSchema<
 	responseBody: InvitesGetResponseBodySchema,
 };
 
+const InviteDeleteSearchParamsSchema = {
+	inviteId: InviteSchema.entries.inviteId,
+};
+export const InviteDeleteRequestSchema: RequestSchema<
+	typeof InviteDeleteSearchParamsSchema,
+	undefined,
+	undefined
+> = {
+	searchParams: InviteDeleteSearchParamsSchema,
+	requestBody: undefined,
+	responseBody: undefined,
+};
+
 const InviteRespondSearchParamsSchema = {
-	invite: InviteSchema.entries.inviteId,
+	inviteId: InviteSchema.entries.inviteId,
 };
 const InviteRespondRequestBodySchema = v.object({ accepted: v.boolean() });
 export const InviteRespondRequestSchema: RequestSchema<

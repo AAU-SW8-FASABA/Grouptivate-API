@@ -30,15 +30,12 @@ export const LoginRequestSchema: RequestSchema<
 	responseBody: LoginResponseBodySchema,
 };
 
-const VerifyRequestBodySchema = v.object({
-	token: TokenSchema,
-});
 export const VerifyRequestSchema: RequestSchema<
 	Record<never, never>,
-	typeof VerifyRequestBodySchema,
+	undefined,
 	undefined
 > = {
 	searchParams: {},
-	requestBody: VerifyRequestBodySchema,
+	requestBody: undefined,
 	responseBody: undefined,
 };

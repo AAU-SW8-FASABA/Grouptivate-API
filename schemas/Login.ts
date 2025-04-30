@@ -5,8 +5,8 @@ import { TokenSchema } from "./Token";
 import type { RequestSchema } from "../containers/Request";
 
 export const LoginSchema = v.object({
-  name: NameSchema,
-  password: PasswordSchema,
+	name: NameSchema,
+	password: PasswordSchema,
 });
 export type Login = v.InferOutput<typeof LoginSchema>;
 
@@ -16,27 +16,27 @@ export type Login = v.InferOutput<typeof LoginSchema>;
 
 const LoginRequestBodySchema = LoginSchema;
 const LoginResponseBodySchema = v.object({
-  token: TokenSchema,
+	token: TokenSchema,
 });
 export const LoginRequestSchema: RequestSchema<
-  Record<never, never>,
-  typeof LoginRequestBodySchema,
-  typeof LoginResponseBodySchema
+	Record<never, never>,
+	typeof LoginRequestBodySchema,
+	typeof LoginResponseBodySchema
 > = {
-  searchParams: {},
-  requestBody: LoginRequestBodySchema,
-  responseBody: LoginResponseBodySchema,
+	searchParams: {},
+	requestBody: LoginRequestBodySchema,
+	responseBody: LoginResponseBodySchema,
 };
 
 const VerifyRequestBodySchema = v.object({
-  token: TokenSchema,
+	token: TokenSchema,
 });
 export const VerifyRequestSchema: RequestSchema<
-  Record<never, never>,
-  typeof VerifyRequestBodySchema,
-  undefined
+	Record<never, never>,
+	typeof VerifyRequestBodySchema,
+	undefined
 > = {
-  searchParams: {},
-  requestBody: VerifyRequestBodySchema,
-  responseBody: undefined,
+	searchParams: {},
+	requestBody: VerifyRequestBodySchema,
+	responseBody: undefined,
 };

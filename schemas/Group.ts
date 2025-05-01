@@ -49,6 +49,17 @@ export const GroupGetRequestSchema: RequestSchema<
 	responseBody: GroupGetResponseBodySchema,
 };
 
+const GroupsGetResponseBodySchema = v.array(GroupSchema);
+export const GroupsGetRequestSchema: RequestSchema<
+	Record<never, never>,
+	undefined,
+	typeof GroupsGetResponseBodySchema
+> = {
+	searchParams: {},
+	requestBody: undefined,
+	responseBody: GroupsGetResponseBodySchema,
+};
+
 const GroupRemoveRequestBodySchema = v.object({
 	userId: UuidSchema,
 	groupId: GroupSchema.entries.groupId,
